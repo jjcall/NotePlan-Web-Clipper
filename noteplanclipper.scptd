@@ -1,0 +1,17 @@
+on run {input, parameters}
+  set username to "jcalleiro"
+  set folderName to "WebClips"
+  set basePath to "/Users/" & username & "/Library/Containers/co.noteplan.NotePlan3/Data/Library/Application Support/co.noteplan.NotePlan3/Notes/"
+  set noteClipDirectory to basePath & folderName
+
+  -- Ensure the base path exists
+  do shell script "mkdir -p " & quoted form of basePath
+
+  tell application "Finder"
+    if not (exists folder (POSIX file noteClipDirectory as text)) then
+      make new folder at (POSIX file basePath as alias) with properties {name: folderName}
+    end if
+  end tell
+
+  return input
+end run
